@@ -1,2 +1,8 @@
+#Chainlit framework
 chainlit
+
+#OpenAi Python library
 openai>=1.0
+
+#Langchain framework
+langchain[openai]
