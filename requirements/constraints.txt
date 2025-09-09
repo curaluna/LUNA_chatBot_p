@@ -1,0 +1,4 @@
+pydantic==2.8.2
+langchain-openai==0.3.32
+chainlit==1.1.100
+ruff==0.12.12
