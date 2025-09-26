@@ -45,9 +45,7 @@ def get_question(x):  # erwartet {"question": "..."}
 
 # Prompt: System-Regeln + Frage + Kontext
 prompt = ChatPromptTemplate.from_messages([
-    ("system", SYSTEM_PROMPT + 
-     "\nNutze ausschließlich den bereitgestellten Kontext. "
-     "Wenn kein passender Kontext vorhanden ist, antworte: 'Kein relevanter Kontext gefunden.'"),
+    ("system", SYSTEM_PROMPT ),
     ("user", "Frage: {question}\n\nKontext:\n{context}")
 ])
 
