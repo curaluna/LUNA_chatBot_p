@@ -1,57 +1,27 @@
 import chainlit as cl
-from openai import OpenAI
-from chainlit.types import ThreadDict
+from dotenv import load_dotenv
 
+import os, sys
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))  # -> Projektroot
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
 
-client = OpenAI()
+from src.app.chains.doc_qa_chain import doc_qa_chain, retriever, extract_citations  # <- neu
 
+load_dotenv()
 
-# Defines what happens when a chat session is started
-@cl.on_chat_start
-def start_chat():
-    print("User started a session!")
-
-
-# Defines what happens when a user stops a running task
-@cl.on_stop
-def on_stop():
-    print("The user stopped a task!")
-
-
-# Defines what happens when the user disconnects from the current chat session
-@cl.on_chat_end
-def on_chat_end():
-    print("The user disconnected!")
-
-
-# Defines what happens when the user resumes a previously closed chat session
-@cl.on_chat_resume
-async def on_chat_resume(thread: ThreadDict):
-    print("The user resumed a previous chat session!")
-
-
-@cl.step
-async def on_step():
-    current_step = cl.context.current_step
-
-    print(current_step)
-
-
-# Defines what happens when a user sends a message
 @cl.on_message
-async def main(message: cl.Message):
-    with client.responses.stream(
-        model="gpt-5-nano",
-        input=cl.chat_context.to_openai(),
-        instructions="your name is Luna. You are a nice thoughtful Care Assistant. Your preffered Language is german but you can also answer in englisch if nessecary",
-    ) as stream:
-        msg = cl.Message(content="")
+async def on_message(message: cl.Message):
+    user_q = message.content.strip()
+    if not user_q:
+        await cl.Message(content="Bitte gib eine Frage ein.").send()
+        return
 
-        for event in stream:
-            first = True
-            if event.type == "response.output_text.delta":
-                msg.content += event.delta
-                if first:
-                    await msg.send()
-                else:
-                    await msg.update()
+    # 1) Kontext holen (zeigt dir, was wirklich benutzt wird)
+    docs = await retriever.aget_relevant_documents(user_q)
+    cites = extract_citations(docs)
+    await cl.Message(content=f"_Kontextquellen:_ {cites}").send()  # Debug/Transparenz
+
+    # 2) Antwort aus der RAG-Chain
+    answer = await doc_qa_chain.ainvoke({"question": user_q})
+    await cl.Message(content=answer).send()

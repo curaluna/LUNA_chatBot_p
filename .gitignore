@@ -4,5 +4,9 @@ __pycache__
 .ruff_cache
 .venv
 .vscode
+.files
 *.log
 *.db
+*.pdf
+*.faiss
+index.pkl
