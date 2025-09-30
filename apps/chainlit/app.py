@@ -6,7 +6,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))  # -
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from src.app.chains.doc_qa_chain import doc_qa_chain, retriever, extract_citations  # <- neu
+from src.app.chains.doc_qa_chain import doc_qa_chain, retriever, extract_citations  
 
 load_dotenv()
 

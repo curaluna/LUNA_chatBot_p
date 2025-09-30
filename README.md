@@ -111,7 +111,7 @@ py -m src.app.rag.ingest
 Run the Chainlit app with:
 
 ```bash
-chainlit run app-chainlit-app.py -w
+chainlit run app/chainlit/app.py -w
 ```
 
 ---
