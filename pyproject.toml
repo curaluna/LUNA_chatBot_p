@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68","wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "luna-chatbot"
+version = "0.1.0"
+description = "Chainlit Chat assistant"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text="MIT"}
+authors = [{name= "Jonas Besier", email = "jonas.besier.work@gmail.com"}]
+dependencies = [
+    "chainlit==2.8.3",
+    "langchain==0.3.27",
+    "pypdf",
+    "langchain-openai",
+    "langchain-community",
+    "faiss-cpu>=1.7,<2"
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff>=0.13.0", "mypy"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["luna_chatbot*"]

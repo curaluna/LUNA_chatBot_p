@@ -1,6 +1,6 @@
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[4]
 DATA_DIR = ROOT / "data"
 PDF_DIR = DATA_DIR / "pdfs"
 VECTOR_DIR = DATA_DIR / "vectorstore"

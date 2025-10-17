@@ -1,0 +1,12 @@
+:root { 
+  --primary: 25 100% 58% !important;   
+}
+
+.dark {
+    --primary: 25 100% 58% !important;
+}
+
+
+.logo {
+    width:400px !important;
+}

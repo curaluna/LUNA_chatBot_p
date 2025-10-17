@@ -1,0 +1,142 @@
+Metadata-Version: 2.4
+Name: luna-chatbot
+Version: 0.1.0
+Summary: Chainlit Chat assistant
+Author-email: Jonas Besier <jonas.besier.work@gmail.com>
+License: MIT
+Requires-Python: <3.13,>=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: chainlit==2.8.3
+Requires-Dist: langchain==0.3.27
+Requires-Dist: pypdf
+Requires-Dist: langchain-openai
+Requires-Dist: langchain-community
+Requires-Dist: faiss-cpu<2,>=1.7
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: ruff>=0.13.0; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+
+# luna-chatbot-p · Quickstart
+
+---
+
+## 1) Create & activate a virtual environment (venv)
+
+### Windows
+
+1. **Create**
+
+   ```powershell
+   py -m venv .venv
+   ```
+2. **Activate (PowerShell)**
+
+   ```powershell
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+   *CMD variant*: `\.venv\Scripts\activate.bat`
+
+### macOS · Fedora
+
+1. **Create**
+
+   ```bash
+   python3 -m venv .venv
+   ```
+2. **Activate**
+
+   ```bash
+   source .venv/bin/activate
+   ```
+
+> **Optional (recommended):** update pip
+
+```bash
+python -m pip install --upgrade pip
+```
+
+---
+
+## 2) Install dependencies
+
+Run these inside the activated venv:
+
+```bash
+pip install -r requirements/core.txt
+pip install -r requirements/ui.txt
+```
+
+---
+
+## 3) Setup environment file (.env) & API Key
+
+1. **Copy template**
+
+   * **Windows (PowerShell)**
+
+     ```powershell
+     Copy-Item .env.template .env
+     ```
+
+   * **macOS · Fedora**
+
+     ```bash
+     cp .env.template .env
+     ```
+
+2. **Insert AI API Key**
+   Open `.env` in your editor and add your key:
+
+   ```dotenv
+   AI_API_KEY=your_api_key_here
+   ```
+
+> ⚠️ **IMPORTANT:** Never write secrets into the template file (`.env.template`). Only use **`.env`** – and make sure it’s listed in `.gitignore`.
+
+---
+
+## 4) Provide PDFs for ingestion
+
+Place all PDF files that should be considered in the RAG process into:
+
+```
+data/pdfs/
+```
+
+---
+
+## 5) Ingest the VectorStore
+
+### macOS · Fedora
+
+```bash
+python -m src.app.rag.ingest
+```
+
+### Windows (PowerShell)
+
+```powershell
+py -m src.app.rag.ingest
+```
+
+> Always run ingest **after** activating the venv.
+
+---
+
+## 6) Start the app
+
+Run the Chainlit app with:
+
+```bash
+chainlit run app/chainlit/app.py -w
+```
+
+---
+
+## 7) Handy commands
+
+* **Leave venv**: `deactivate`
+* **Update packages**: `pip install --upgrade <package>`
+* **Check Python path**: `which python` (macOS/Fedora) · `where python` (Windows)
