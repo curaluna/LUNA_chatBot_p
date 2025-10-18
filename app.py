@@ -1,4 +1,3 @@
-from collections import deque
 import uuid
 import chainlit as cl
 from dotenv import load_dotenv

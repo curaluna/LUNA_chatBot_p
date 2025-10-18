@@ -1,22 +1,33 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    PYTHONPATH=/app
-    
-WORKDIR /app 
+    PYTHONPATH=/app \
+    VECTOR_DIR=/app/data/vectorstore
+                                                                                                        
+WORKDIR /app
 
-COPY requirements/ requirements/
+
+COPY pyproject.toml README.md ./
+COPY src/ ./src/
+
 
 RUN pip install --upgrade pip && \
-    pip install -r requirements/core.txt -r requirements/ui.txt
+    pip install .
 
 
+COPY data/vectorstore/ /app/data/vectorstore/
+COPY data/vectorstore/index.faiss /app/data/vectorstore/index.faiss
+COPY data/vectorstore/index.pkl   /app/data/vectorstore/index.pkl
 COPY . .
-RUN mkdir -p data/pdfs data/vectorstore 
+
+
+RUN mkdir -p /app/data/pdfs /app/data/vectorstore
 
 EXPOSE 8000
 
-CMD ["sh","-c","chainlit run apps/chainlit/app.py --host 0.0.0.0 --port ${PORT:-8000}"]
+
+
+CMD ["sh","-c","chainlit run app.py --host 0.0.0.0 --port ${PORT:-8000}"]

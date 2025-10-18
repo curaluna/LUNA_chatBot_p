@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
 
-MODEL_NAME = "gpt-5-nano-2025-08-07"
+MODEL_NAME = "gpt-5-mini-2025-08-07"
 TEMPERATURE = 0.4
 STREAMING = True
 
