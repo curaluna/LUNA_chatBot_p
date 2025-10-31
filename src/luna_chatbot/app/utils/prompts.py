@@ -1,8 +1,8 @@
 from __future__ import annotations
 from pathlib import Path
 
-SYSTEM_PROMPT_PATH = Path(__file__).parents[1] / "prompts" / "system.md"
-DEVELOPER_PROMPT_PATH = Path(__file__).parents[1] / "prompts" / "developer.md"
+SYSTEM_PROMPT_PATH = Path(__file__).parents[4] / "prompts" / "system.md"
+DEVELOPER_PROMPT_PATH = Path(__file__).parents[4] / "prompts" / "developer.md"
 
 
 def load_system_prompt() -> str:

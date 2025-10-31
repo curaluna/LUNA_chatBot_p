@@ -11,16 +11,21 @@ requires-python = ">=3.12,<3.13"
 license = { text="MIT"}
 authors = [{name= "Jonas Besier", email = "jonas.besier.work@gmail.com"}]
 dependencies = [
-    "chainlit==2.8.3",
-    "langchain==0.3.27",
-    "pypdf",
+    "chainlit",
+    "langchain==1.0.2",
     "langchain-openai",
+    "pypdf",
     "langchain-community",
-    "faiss-cpu>=1.7,<2"
+    "langchain-chroma",
+    "langsmith"
 ]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff>=0.13.0", "mypy"]
+
+[tool.chainlit]
+watch = true
+
 
 [tool.setuptools.packages.find]
 where = ["src"]

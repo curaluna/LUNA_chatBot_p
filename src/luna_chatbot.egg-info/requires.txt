@@ -1,0 +1,12 @@
+chainlit
+langchain==1.0.2
+langchain-openai
+pypdf
+langchain-community
+langchain-chroma
+langsmith
+
+[dev]
+pytest
+ruff>=0.13.0
+mypy
