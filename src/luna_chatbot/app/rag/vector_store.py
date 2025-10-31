@@ -16,14 +16,13 @@ vector_storage = Chroma(
 )
 
 
-def main():
-    """Mai""n function to set vector store."""
-    print("Attempting to set VectorStore")
-    ids = vector_storage.aadd_documents(documents=chunked_documents)
+async def main():
+    """Main function to set vector store."""
+    ids = await vector_storage.aadd_documents(documents=chunked_documents)
 
     if ids:
-        print("Successfully set VectorStore")
         return
+
     raise Exception("Could not set VectorStore")
 
 

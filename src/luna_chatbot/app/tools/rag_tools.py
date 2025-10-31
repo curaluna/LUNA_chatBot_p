@@ -2,10 +2,10 @@ from langchain.tools import tool
 from luna_chatbot.app.rag.vector_store import vector_storage
 
 
-@tool(description="Retrieves informations from the vectorstorage")
+@tool()
 async def get_RAG_data(query: str) -> list[str]:
     """
-    always use when answering topics related to nursing care, healthcare  or general care
+    Use to fetch up-to-date, nursing-, health-, or caregiving-related knowledge from the vector store; pass along the user’s full query and weave the retrieved highlights into your reply.
 
     args:
       question str

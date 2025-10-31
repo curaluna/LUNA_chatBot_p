@@ -10,6 +10,11 @@ load_dotenv()
 async def set_starters():
     return [
         cl.Starter(
+            label="tester rag",
+            message=("Erkläre mir was pflegehilfe ist"),
+            icon="/public/care.svg",
+        ),
+        cl.Starter(
             label="Entlastung für Angehörige",
             message=(
                 "Ich pflege einen Angehörigen und brauche schnelle, passende Entlastungsangebote in meiner Nähe."
@@ -41,7 +46,6 @@ async def on_message(user_msg: cl.Message):
         # combined stream with "messages" and "update" token
         run_chat.input = user_msg.content
 
-        run_chat.send()
         async for mode, chunk in chat_agent.astream(
             {"messages": [{"role": "user", "content": user_msg.content}]},
             {"configurable": {"thread_id": "1"}},
