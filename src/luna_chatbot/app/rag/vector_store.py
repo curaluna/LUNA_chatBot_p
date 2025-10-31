@@ -1,8 +1,7 @@
 from pathlib import Path
 from langchain_chroma import Chroma
-from luna_chatbot.app.rag_builder import chunked_documents
-from luna_chatbot.app.models import basic_embedding
-
+from luna_chatbot.app.rag.document_loader import chunked_documents
+from luna_chatbot.app.models.embedding import basic_embedding
 import os
 from dotenv import load_dotenv
 

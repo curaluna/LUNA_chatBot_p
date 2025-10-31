@@ -1,11 +1,11 @@
 from langchain.tools import tool
-from luna_chatbot.app.rag_builder.vector_store import vector_storage
+from luna_chatbot.app.rag.vector_store import vector_storage
 
 
-@tool(description="Retrekives informations from the german 'Pflegeratgeber des BMG'")
-async def get_care_info(query: str) -> list[str]:
+@tool(description="Retrieves informations from the vectorstorage")
+async def get_RAG_data(query: str) -> list[str]:
     """
-    use when answering topics related to nursing care, healthcare  or general care
+    always use when answering topics related to nursing care, healthcare  or general care
 
     args:
       question str
@@ -15,7 +15,8 @@ async def get_care_info(query: str) -> list[str]:
 
     """
     # TODO: refactor with fully built rag_agent
-    result = await vector_storage.asearch(query=query, search_type="mmr", k=3)
+
+    result = await vector_storage.asearch(query=query, search_type="mmr", k=5)
     if len(result) != 0:
         print(result)
         readable_result = f"Das habe ich zur frage '{query}' gefunden:\n\n"

@@ -1,9 +1,7 @@
 from langchain_openai import ChatOpenAI
 
 
-basic_model = ChatOpenAI(
-    model="gpt-5-mini", temperature=0.3, reasoning_effort="minimal"
-)
+base_model = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)
 
 # TODO: implement RAG model for more effective rag retrieval
 rag_model = ChatOpenAI(model="")

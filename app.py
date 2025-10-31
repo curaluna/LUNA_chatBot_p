@@ -1,6 +1,7 @@
 import chainlit as cl
 from dotenv import load_dotenv
-from src.luna_chatbot.app.agents import agent
+from luna_chatbot.app.agents.chat_agent import chat_agent
+from luna_chatbot.app.utils.type_helpers import isAIMessage
 
 load_dotenv()
 
@@ -33,22 +34,43 @@ async def set_starters():
 
 
 @cl.on_message
-async def on_message(msg: cl.Message):
-    h_msg = msg.content.strip()
-    out = cl.Message(content="")
-    async with cl.Step(name="llm", type="llm") as llm_step:
-        llm_step.input = h_msg
-        out.send()
-        async for mode, chunk in agent.astream(
-            {"messages": [{"role": "user", "content": h_msg}]},
-            stream_mode=["messages", "updates"],
+async def on_message(user_msg: cl.Message):
+    out_msg = cl.Message(content="")
+
+    async with cl.Step(type="llm") as run_chat:
+        # combined stream with "messages" and "update" token
+        run_chat.input = user_msg.content
+
+        run_chat.send()
+        async for mode, chunk in chat_agent.astream(
+            {"messages": [{"role": "user", "content": user_msg.content}]},
+            {"configurable": {"thread_id": "1"}},
+            stream_mode=["messages", "updates", "debug"],
         ):
-            if mode == "messages" and "tools" not in chunk:
+            if mode == "messages" and isAIMessage(chunk):
+                token, metadata = chunk
+
                 content = chunk[0].content
-                out.stream_token(content)
-
+                await out_msg.stream_token(content)
             if mode == "updates":
-                
-
+                # if its a toolcall show tool name tool input and tool output
                 if "tools" in chunk:
+                    # call a child step if its a tool call
+                    async with cl.Step(
+                        name=chunk["tools"]["messages"][0].name
+                    ) as tool_step:
+                        tool_step.input = run_chat.input
+                        tool_step.output = chunk["tools"]["messages"][0].content
 
+                # if its a modelcall show in and output
+                if "model" in chunk:
+                    run_chat.output = chunk["model"]["messages"][0].content
+
+            # if mode == "debug":
+            #    print(f"Step: {chunk['step']}", end="\n")
+            #    print(f"Type: {chunk['type']}-{chunk['payload']['name']}", end="\n")
+            #    print(f"Timestamp: {chunk['timestamp']}", end="\n\n")
+            # if nessecary add additional debug information
+
+    await out_msg.send()
+    await out_msg.update()
