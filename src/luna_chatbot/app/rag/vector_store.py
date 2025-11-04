@@ -16,9 +16,9 @@ vector_storage = Chroma(
 )
 
 
-async def main():
+def main():
     """Main function to set vector store."""
-    ids = await vector_storage.aadd_documents(documents=chunked_documents)
+    ids = vector_storage.add_documents(documents=chunked_documents)
 
     if ids:
         return

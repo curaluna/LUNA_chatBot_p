@@ -5,4 +5,4 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-basic_embedding = OpenAIEmbeddings(model="text-embeddings-3-small")
+basic_embedding = OpenAIEmbeddings(model="text-embedding-3-small")
