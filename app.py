@@ -10,11 +10,6 @@ load_dotenv()
 async def set_starters():
     return [
         cl.Starter(
-            label="tester rag",
-            message=("Erkläre mir was pflegehilfe ist"),
-            icon="/public/care.svg",
-        ),
-        cl.Starter(
             label="Entlastung für Angehörige",
             message=(
                 "Ich pflege einen Angehörigen und brauche schnelle, passende Entlastungsangebote in meiner Nähe."

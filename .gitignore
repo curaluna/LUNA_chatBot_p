@@ -10,6 +10,6 @@ __pycache__
 *.pdf
 *.faiss
 index.pkl
-!data/vectorstore
+data/chroma_vectorstorage
 !data/pdfs
 .code-workspace 

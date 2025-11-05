@@ -2,7 +2,7 @@ from langchain.tools import tool
 from luna_chatbot.app.rag.vector_store import vector_storage
 
 
-@tool()
+@tool("dataFetch")
 async def get_RAG_data(query: str) -> str:
     """
     use whenever receiving a question about a nursing care related question.

@@ -17,10 +17,6 @@ COPY src/ ./src/
 RUN pip install --upgrade pip && \
     pip install .
 
-
-COPY data/vectorstore/ /app/data/vectorstore/
-COPY data/vectorstore/index.faiss /app/data/vectorstore/index.faiss
-COPY data/vectorstore/index.pkl   /app/data/vectorstore/index.pkl
 COPY . .
 
 
