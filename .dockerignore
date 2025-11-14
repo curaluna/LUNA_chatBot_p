@@ -10,3 +10,6 @@ node_module
 .keep
 *.egg-info
 .code-workspace 
+
+
+!prompts/

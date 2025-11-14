@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from luna_chatbot.app.agents.chat_agent import chat_agent
 from luna_chatbot.app.utils.type_helpers import isAIMessage
 
+
 load_dotenv()
 
 

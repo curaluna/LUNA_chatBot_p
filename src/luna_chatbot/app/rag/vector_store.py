@@ -7,12 +7,28 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_DIR = Path(__file__).resolve().parents[4] / "data" / "chroma_vectorstorage"
+
+def get_persist_dir() -> Path:
+    """
+    Bevorzugt absoluten Pfad aus ENV (LUNA_DATA_DIR).
+    Fallback: <CWD>/data/chroma_vectorstorage (im Container ist CWD = /app).
+    Legt den Ordner an.
+    """
+    env_path = os.getenv("LUNA_DATA_DIR")
+    base = (
+        Path(env_path) if env_path else (Path.cwd() / "data" / "chroma_vectorstorage")
+    )
+    base = base.resolve()
+    base.mkdir(parents=True, exist_ok=True)
+    return base
+
+
+PERSIST_DIR = get_persist_dir()
 
 vector_storage = Chroma(
     collection_name="RAG_Collection",
     embedding_function=basic_embedding,
-    persist_directory=DATABASE_DIR,
+    persist_directory=PERSIST_DIR,
 )
 
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "luna-chatbot"
-version = "0.1.0"
+version = "0.1.1"  
 description = "Chainlit Chat assistant"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
@@ -26,7 +26,12 @@ dev = ["pytest", "ruff>=0.13.0", "mypy"]
 [tool.chainlit]
 watch = true
 
-
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["luna_chatbot*"]
+
+[tool.setuptools.package-data]
+luna_chatbot = ["app/prompts/*.md"]
+
+[tool.setuptools]
+include-package-data = true
