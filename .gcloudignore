@@ -1,3 +1,2 @@
 !data/vectorstore/ **
-!**/*.faiss
-!**/*.pkl
+data/pdfs
