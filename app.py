@@ -1,10 +1,16 @@
 import chainlit as cl
 from dotenv import load_dotenv
-from luna_chatbot.app.agents.chat_agent import chat_agent
+from luna_chatbot.app.agents.chat_agent import init_chat_agent
 from luna_chatbot.app.utils.type_helpers import isAIMessage
 
 
 load_dotenv()
+
+
+@cl.on_chat_start
+async def on_chat_start():
+    global chat_agent
+    chat_agent = await init_chat_agent()
 
 
 @cl.set_starters
