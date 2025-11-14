@@ -11,5 +11,6 @@ __pycache__
 *.faiss
 index.pkl
 data/chroma_vectorstorage
+chroma.*
 !data/pdfs
 .code-workspace 

@@ -38,8 +38,7 @@ async def get_RAG_data(query: str) -> str:
         readable_result = f"Das habe ich zur frage '{query}' gefunden:\n\n"
 
         for r in result:
-            print(r.metadata)
-            readable_result += f"**PDF:** {r.metadata['source']}\n **Page:** {r.metadata['page_label']} \n **Content:** \n{r.page_content}\n\n"
+            readable_result += f"**PDF:** {r.metadata['title']}\n **Page:** {r.metadata['page_label']} \n **Content:** \n{r.page_content}\n\n"
 
         return readable_result
 

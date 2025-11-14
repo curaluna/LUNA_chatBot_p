@@ -1,6 +1,6 @@
 from pathlib import Path
 from langchain_chroma import Chroma
-from luna_chatbot.app.rag.document_loader import chunked_documents
+from luna_chatbot.app.rag.document_loader import get_chunked_documents
 from luna_chatbot.app.models.embedding import basic_embedding
 import os
 from dotenv import load_dotenv
@@ -32,9 +32,23 @@ vector_storage = Chroma(
 )
 
 
+def clear_vector_storage() -> None:
+    """Delete all stored vectors to ensure a clean re-index."""
+    existing_ids = vector_storage.get().get("ids", [])
+    if existing_ids:
+        vector_storage.delete(ids=existing_ids)
+    existing_ids = vector_storage.get().get("ids", [])
+    if len(existing_ids) == 0:
+        print("\033[32mvector-store deleted successfully\033[0m", end="\n\n")
+
+    else:
+        raise Exception("There was an Error with the vector-store deletion.")
+
+
 def main():
     """Main function to set vector store."""
-    ids = vector_storage.add_documents(documents=chunked_documents)
+    clear_vector_storage()
+    ids = vector_storage.add_documents(documents=get_chunked_documents())
 
     if ids:
         return
