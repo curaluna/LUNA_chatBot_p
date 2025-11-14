@@ -50,7 +50,7 @@ async def on_message(user_msg: cl.Message):
 
         async for mode, chunk in chat_agent.astream(
             {"messages": [{"role": "user", "content": user_msg.content}]},
-            {"configurable": {"thread_id": "1"}},
+            {"configurable": {"thread_id": cl.user_session.get("id")}},
             stream_mode=["messages", "updates", "debug"],
         ):
             if mode == "messages" and isAIMessage(chunk):
