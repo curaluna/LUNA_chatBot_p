@@ -1,10 +1,21 @@
 import chainlit as cl
+from chainlit.types import ThreadDict, Dict, Optional
 from dotenv import load_dotenv
 from luna_chatbot.app.agents.chat_agent import init_chat_agent
 from luna_chatbot.app.utils.type_helpers import isAIMessage
 
 
 load_dotenv()
+
+
+@cl.oauth_callback
+def oauth_callback(
+    provider_id: str,
+    token: str,
+    raw_user_data: Dict[str, str],
+    default_user: cl.User,
+) -> Optional[cl.User]:
+    return default_user
 
 
 @cl.on_chat_start
@@ -38,6 +49,11 @@ async def set_starters():
             icon="/public/shield.svg",
         ),
     ]
+
+
+@cl.on_chat_resume
+async def on_chat_resume(thread: ThreadDict):
+    print("The user resumed a previous chat session!")
 
 
 @cl.on_message
