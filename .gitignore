@@ -13,4 +13,4 @@ index.pkl
 data/chroma_vectorstorage/*
 chroma.sqlite3
 !data/pdfs
-.code-workspace 
+*.code-workspace 

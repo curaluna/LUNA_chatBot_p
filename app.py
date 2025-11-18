@@ -1,10 +1,21 @@
 import chainlit as cl
+from chainlit.types import ThreadDict, Dict, Optional
 from dotenv import load_dotenv
 from luna_chatbot.app.agents.chat_agent import init_chat_agent
 from luna_chatbot.app.utils.type_helpers import isAIMessage
 
 
 load_dotenv()
+
+
+@cl.oauth_callback
+def oauth_callback(
+    provider_id: str,
+    token: str,
+    raw_user_data: Dict[str, str],
+    default_user: cl.User,
+) -> Optional[cl.User]:
+    return default_user
 
 
 @cl.on_chat_start
@@ -40,6 +51,11 @@ async def set_starters():
     ]
 
 
+@cl.on_chat_resume
+async def on_chat_resume(thread: ThreadDict):
+    print("The user resumed a previous chat session!")
+
+
 @cl.on_message
 async def on_message(user_msg: cl.Message):
     out_msg = cl.Message(content="")
@@ -50,7 +66,7 @@ async def on_message(user_msg: cl.Message):
 
         async for mode, chunk in chat_agent.astream(
             {"messages": [{"role": "user", "content": user_msg.content}]},
-            {"configurable": {"thread_id": "1"}},
+            {"configurable": {"thread_id": cl.user_session.get("id")}},
             stream_mode=["messages", "updates", "debug"],
         ):
             if mode == "messages" and isAIMessage(chunk):
