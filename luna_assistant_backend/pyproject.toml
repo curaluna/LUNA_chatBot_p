@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68","wheel"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,8 +10,12 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = { text="MIT"}
 authors = [{name= "Jonas Besier", email = "jonas.besier.work@gmail.com"}]
+
 dependencies = [
-    "chainlit",
+    "fastapi",
+    "pydantic-settings",
+    "uvicorn",
+    "python-dotenv",
     "langchain==1.0.2",
     "langchain-openai",
     "pypdf",
@@ -21,17 +25,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "ruff>=0.13.0", "mypy"]
+dev = ["pytest", "ruff", "mypy", "isort"]
 
-[tool.chainlit]
-watch = true
 
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["luna_chatbot*"]
+[tool.ruff]
+line-length = 100
 
-[tool.setuptools.package-data]
-luna_chatbot = ["app/prompts/*.md"]
+[tool.mypy]
+strict = true
+
 
 [tool.setuptools]
 include-package-data = true

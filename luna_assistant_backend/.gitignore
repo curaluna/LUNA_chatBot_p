@@ -3,6 +3,7 @@ __pycache__
 .chainlit
 .ruff_cache
 .venv
+venv
 .vscode
 .files
 *.log

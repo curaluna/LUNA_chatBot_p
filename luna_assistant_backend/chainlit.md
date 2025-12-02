@@ -1,2 +1,0 @@
-
-HI! I am LUNA!

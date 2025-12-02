@@ -1,5 +1,5 @@
 from langchain.tools import tool
-from luna_chatbot.app.rag.vector_store import vector_storage
+from app.rag.vector_store import vector_storage
 
 
 @tool("dataFetch")

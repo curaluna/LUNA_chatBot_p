@@ -1,8 +1,8 @@
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
-from luna_chatbot.app.models.chat import base_model
-from luna_chatbot.app.tools.rag_tools import get_RAG_data
-from luna_chatbot.app.prompts.provider import _pull_system_prompt
+from app.models.chat import base_model
+from app.tools.rag_tools import get_RAG_data
+from app.prompts.provider import _pull_system_prompt
 
 
 async def init_chat_agent():

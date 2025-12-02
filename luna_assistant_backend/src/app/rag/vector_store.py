@@ -1,11 +1,8 @@
 from pathlib import Path
 from langchain_chroma import Chroma
-from luna_chatbot.app.rag.document_loader import get_chunked_documents
-from luna_chatbot.app.models.embedding import basic_embedding
+from app.rag.document_loader import get_chunked_documents
+from app.models.embedding import basic_embedding
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 def get_persist_dir() -> Path:
@@ -15,9 +12,7 @@ def get_persist_dir() -> Path:
     Legt den Ordner an.
     """
     env_path = os.getenv("LUNA_DATA_DIR")
-    base = (
-        Path(env_path) if env_path else (Path.cwd() / "data" / "chroma_vectorstorage")
-    )
+    base = Path(env_path) if env_path else (Path.cwd() / "data" / "chroma_vectorstorage")
     base = base.resolve()
     base.mkdir(parents=True, exist_ok=True)
     return base
