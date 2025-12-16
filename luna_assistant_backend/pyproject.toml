@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "luna-chatbot"
-version = "0.1.1"  
+version = "1-2"
 description = "Chainlit Chat assistant"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
@@ -13,14 +13,31 @@ authors = [{name= "Jonas Besier", email = "jonas.besier.work@gmail.com"}]
 
 dependencies = [
     "fastapi",
-    "pydantic-settings",
     "uvicorn",
+    "pydantic-settings",
     "python-dotenv",
-    "langchain==1.0.2",
-    "langchain-openai",
+    "certifi",
+    
+    # LangChain 1.0 Family
+    "langchain>=1.0.0",
+    "langchain-core>=1.0.0",
+    "langchain-community>=0.4.0",
+    "langchain-openai>=1.1.0",
+    
+    # Database - VECTORS (Generic Adapter)
+    "langchain-postgres", 
+    "asyncpg", # Driver for Vectors/SQLAlchemy
+
+    # Database - CHECKPOINTS (LangGraph Persistence)
+    "langgraph-checkpoint-postgres>=2.0.0",
+    "psycopg[binary]", # Driver for Checkpoints
+    
+    # Google Cloud Connector
+    "cloud-sql-python-connector[asyncpg,pycopg3]>=1.10.0",
+    "google-cloud-storage",
+
+    # Utilities
     "pypdf",
-    "langchain-community",
-    "langchain-chroma",
     "langsmith"
 ]
 

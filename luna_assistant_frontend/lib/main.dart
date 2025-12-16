@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.from(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.amber,
+          seedColor: Colors.lightBlue,
           brightness: Brightness.dark,
         ),
         textTheme: TextTheme(displayMedium: TextStyle(color: Colors.white30)),

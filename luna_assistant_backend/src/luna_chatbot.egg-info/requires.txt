@@ -1,13 +1,19 @@
 fastapi
-pydantic-settings
 uvicorn
-constextlib
+pydantic-settings
 python-dotenv
-langchain==1.0.2
-langchain-openai
+certifi
+langchain>=1.0.0
+langchain-core>=1.0.0
+langchain-community>=0.4.0
+langchain-openai>=1.1.0
+langchain-postgres
+asyncpg
+langgraph-checkpoint-postgres>=2.0.0
+psycopg[binary]
+cloud-sql-python-connector[asyncpg,pycopg3]>=1.10.0
+google-cloud-storage
 pypdf
-langchain-community
-langchain-chroma
 langsmith
 
 [dev]

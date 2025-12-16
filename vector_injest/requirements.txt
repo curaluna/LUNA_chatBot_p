@@ -1,0 +1,8 @@
+google-cloud-storage 
+langchain-postgres 
+langchain-openai
+langchain-community
+sqlalchemy 
+psycopg[binary] 
+pypdf 
+langchain-text-splitters

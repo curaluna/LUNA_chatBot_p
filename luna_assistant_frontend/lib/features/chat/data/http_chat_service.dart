@@ -22,7 +22,7 @@ class HttpChatService implements ChatService {
     request.headers["Content-Type"] = "application/json";
     request.body = jsonEncode({
       "message": userMessage,
-      "sessionId": this.sessionId,
+      "sessionId": this.sessionId.toString(),
     });
 
     try {

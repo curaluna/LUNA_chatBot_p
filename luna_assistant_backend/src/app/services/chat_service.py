@@ -15,6 +15,7 @@ async def agent_call(prompt: str, sessionId: int, chat_agent):
             print("Mode: ", mode)
 
             if mode == "messages":
+                print(chunk[0].content)
                 yield chunk[0].content
             if mode == "updates":
                 print("Chunk: ", chunk)

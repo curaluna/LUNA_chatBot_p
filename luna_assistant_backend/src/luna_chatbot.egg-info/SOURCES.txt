@@ -4,6 +4,8 @@ src/app/config.py
 src/app/main.py
 src/app/agents/__init__.py
 src/app/agents/chat_agent.py
+src/app/data/database.py
+src/app/data/init_database.py
 src/app/models/__init__.py
 src/app/models/chat.py
 src/app/models/embedding.py

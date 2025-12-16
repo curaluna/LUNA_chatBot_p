@@ -25,15 +25,14 @@ class MessageCard extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: !isUser ? Colors.teal[200]! : Colors.amber[600]!,
+                color: !isUser ? Colors.blue[200]! : Colors.orange[400]!,
                 offset: Offset.zero,
                 blurRadius: 1,
                 spreadRadius: 1,
               ),
             ],
-            color: isUser ? Colors.teal[200] : Colors.amber[600],
+            color: isUser ? Colors.blue[200] : Colors.orange[400],
             borderRadius: BorderRadius.all(Radius.circular(16)),
-            border: Border.all(color: Colors.black),
           ),
           child: text == ""
               ? SizedBox.fromSize(
