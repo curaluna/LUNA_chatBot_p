@@ -1,0 +1,21 @@
+substitutions:
+  _BACKEND_BASE_URL: "https://example.invalid"
+
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "europe-west3-docker.pkg.dev/$PROJECT_ID/luna/frontend:latest",
+        "--build-arg",
+        "BACKEND_BASE_URL=${_BACKEND_BASE_URL}",
+        "."
+      ]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      ["push", "europe-west3-docker.pkg.dev/$PROJECT_ID/luna/frontend:latest"]
+
+images:
+  - "europe-west3-docker.pkg.dev/$PROJECT_ID/luna/frontend:latest"

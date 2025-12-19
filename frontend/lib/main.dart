@@ -1,19 +1,21 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:luna_assistant_frontend/features/chat/data/http_chat_service.dart';
 import 'package:luna_assistant_frontend/features/chat/domain/chat_service.dart';
 import 'package:luna_assistant_frontend/features/chat/presentation/chat_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  final http.Client client = http.Client();
-  final Uri endpoint = Uri(host: "127.0.0.1", port: 8000, path: 'chat');
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    throw Exception('Error loading .env file: $e');
+  }
+
   final int sessionId = Random().nextInt(1000);
-  final ChatService chatService = HttpChatService(
-    client: client,
-    endpoint: endpoint,
-    sessionId: sessionId,
-  );
+  final ChatService chatService = HttpChatService(sessionId: sessionId);
   runApp(MyApp(chatService: chatService, sessionId: sessionId));
 }
 

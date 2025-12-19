@@ -1,19 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import '../domain/chat_service.dart';
 
 class HttpChatService implements ChatService {
-  final http.Client client;
-  final Uri endpoint;
+  static const String backendBaseUrl = String.fromEnvironment(
+    'BACKEND_BASE_URL',
+    defaultValue: 'http://localhost:1000',
+  );
+  late final Uri endpoint = Uri.parse('$backendBaseUrl/chat');
+  final http.Client client = http.Client();
   final int sessionId;
 
-  HttpChatService({
-    required this.client,
-    required this.endpoint,
-    required this.sessionId,
-  });
+  HttpChatService({required this.sessionId});
 
   @override
   Stream<String> sendMessage(String userMessage, int sessionId) async* {
