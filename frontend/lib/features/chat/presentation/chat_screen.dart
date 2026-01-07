@@ -137,7 +137,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: TextField(
               controller: _controller,
               decoration: const InputDecoration(
-                labelText: "Nachtisch eingeben ...",
+                labelText: "Nachricht eingeben ...",
               ),
               onSubmitted: (_) => {_onSendPressed()},
             ),
@@ -145,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
           const SizedBox(width: 8),
           ElevatedButton(
             onPressed: _isStreaming ? null : _onSendPressed,
-            child: const Text("Send"),
+            child: const Text("Senden"),
           ),
         ],
       ),
